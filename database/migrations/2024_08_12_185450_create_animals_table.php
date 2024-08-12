@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('animals', function (Blueprint $table) {
             $table->id();
+            $table->integer('farm_id');
             $table->integer('animal_number');
             $table->string('type_name');
             $table->integer('years')->nullable();

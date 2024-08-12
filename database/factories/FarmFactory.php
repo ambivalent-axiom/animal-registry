@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -14,10 +15,18 @@ class FarmFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition(
+        User $user = null,
+        string $name = null,
+        string $email = null,
+        string $website = null,
+    ): array
     {
         return [
-            //
+            'user_id' => $user ?? User::factory(),
+            'name' => $name ?? $this->faker->name(),
+            'email' => $email ?? $this->faker->unique()->safeEmail(),
+            'website' => $website ?? $this->faker->url(),
         ];
     }
 }
