@@ -12,6 +12,7 @@ class Farm extends Model
 {
     use HasFactory, softDeletes;
     protected $fillable = [
+        'user_id',
         'name',
         'email',
         'website'
