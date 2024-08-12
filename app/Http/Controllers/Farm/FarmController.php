@@ -14,6 +14,16 @@ class FarmController extends Controller
 //        $farms = Farm::where('user_id', Auth::id())->with('animals')->paginate(10);
 //        return view('farm.index', compact('farms'));
     }
+    public function show(int $farmId)
+    {
+        $farm = Farm::find($farmId);
+        if ( ! $farm) {
+            return redirect(route('farms.index'))
+                ->with('error', 'Farm not found.');
+        }
+
+        return response()->json($farm);
+    }
     public function create(Request $request)
     {
         $request->validate([

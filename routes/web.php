@@ -3,6 +3,7 @@
 use App\Http\Controllers\Animal\AnimalController;
 use App\Http\Controllers\Farm\FarmController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\IsFarmOwner;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -31,13 +32,21 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
+
     Route::get('/farms/index', [FarmController::class, 'index'])
         ->name('farms.index');
+    Route::get('/farms/show/{farm_id}', [FarmController::class, 'show'])
+        ->name('farms.show')
+        ->middleware(IsFarmOwner::class);
     Route::post('/farms/create', [FarmController::class, 'create'])
         ->name('farms.create');
 
+
     Route::post('/animals/create', [AnimalController::class, 'create'])
         ->name('animal.create');
+
+
+
 
 });
 
