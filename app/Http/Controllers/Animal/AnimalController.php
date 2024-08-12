@@ -9,6 +9,15 @@ use Illuminate\Http\Request;
 
 class AnimalController extends Controller
 {
+    public function show($animal_id)
+    {
+        $animal = Animal::find($animal_id);
+        if ( ! $animal) {
+            return redirect(route('farms.index'))
+                ->with('error', 'Animal not found.');
+        }
+        return response()->json($animal);
+    }
     public function create(Request $request)
     {
         $request->validate([

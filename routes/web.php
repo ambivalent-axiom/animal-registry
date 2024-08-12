@@ -3,6 +3,7 @@
 use App\Http\Controllers\Animal\AnimalController;
 use App\Http\Controllers\Farm\FarmController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\IsAnimalOwner;
 use App\Http\Middleware\IsFarmOwner;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -41,11 +42,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/farms/create', [FarmController::class, 'create'])
         ->name('farms.create');
 
-
+    Route::get('/animals/show/{animal_id}', [AnimalController::class, 'show'])
+        ->name('animals.show')
+        ->middleware(IsAnimalOwner::class);
     Route::post('/animals/create', [AnimalController::class, 'create'])
         ->name('animal.create');
-
-
 
 
 });

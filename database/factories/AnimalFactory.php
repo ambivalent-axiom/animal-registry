@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Farm;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,13 +17,15 @@ class AnimalFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition(
-        Farm $farmId = null,
+        int $userId = null,
+        int $farmId = null,
         int $animalNumber = null,
         string $typeName = null,
         int $years = null,
     ): array
     {
         return [
+            'user_id' => $userId ?? User::all()->random()->id,
             'farm_id' => $farmId ?? Farm::all()->random()->id,
             'animal_number' => $animalNumber ?? $this->faker->unique()->randomNumber(),
             'type_name' => $typeName ?? $this->faker->name(),

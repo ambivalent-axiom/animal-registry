@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('animals', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id')->constrained('users');
             $table->integer('farm_id')->constrained('farms');
             $table->integer('animal_number');
             $table->string('type_name');
