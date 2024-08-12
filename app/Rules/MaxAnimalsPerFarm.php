@@ -20,14 +20,8 @@ class MaxAnimalsPerFarm implements ValidationRule
     }
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        //
-    }
-    public function passes(string $attribute, mixed $value): bool
-    {
-        return Animal::where('farm_id', $this->farmId)->count() < 3;
-    }
-    public function message(): string
-    {
-        return 'Maximum number of animals per farm is 3';
+        if (Animal::where('farm_id', $this->farmId)->count() >= 3) {
+            $fail('Maximum number of animals per farm is 3');
+        }
     }
 }

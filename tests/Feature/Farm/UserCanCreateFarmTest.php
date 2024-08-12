@@ -2,7 +2,6 @@
 
 use App\Models\User;
 
-
 test('user can create farm', function () {
     $user = User::factory()->create();
     $response = $this

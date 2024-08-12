@@ -21,7 +21,7 @@ class FarmController extends Controller
             'farm_email' => ['required', 'string', 'max:255'],
             'farm_website' => ['string', 'max:255'],
         ]);
-        $farm = Farm::create([
+        Farm::create([
             'user_id' => Auth::id(),
             'name' => $request->farm_name,
             'email' => $request->farm_email,
