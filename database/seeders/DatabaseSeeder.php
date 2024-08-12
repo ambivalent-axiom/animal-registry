@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Animal;
+use App\Models\Farm;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +16,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $userJanis = User::factory()->create([
+            'name' => 'Jānis',
+            'email' => 'janis@fermas.lv',
+            'password' => Hash::make('qwerty123'),
         ]);
+        $userPeteris = User::factory()->create([
+            'name' => 'Pēteris',
+            'email' => 'peteris@fermas.lv',
+            'password' => Hash::make('qwerty123'),
+        ]);
+
+        Farm::factory(2)->create([
+            'user_id' => $userPeteris->id,
+        ]);
+        Farm::factory(2)->create([
+            'user_id' => $userJanis->id,
+        ]);
+        Animal::factory(5)->create();
     }
 }

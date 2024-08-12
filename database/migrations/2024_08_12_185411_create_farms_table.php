@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('farms', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->integer('user_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->string('email');
             $table->string('website')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -26,6 +27,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('farms');
+        Schema::table('farms', function(Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

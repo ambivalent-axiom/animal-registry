@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('animals', function (Blueprint $table) {
             $table->id();
-            $table->integer('farm_id');
+            $table->integer('farm_id')->constrained('farms');
             $table->integer('animal_number');
             $table->string('type_name');
             $table->integer('years')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -26,6 +27,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('animals');
+        Schema::table('animals', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

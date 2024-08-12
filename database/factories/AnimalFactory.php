@@ -23,7 +23,7 @@ class AnimalFactory extends Factory
     ): array
     {
         return [
-            'farm_id' => $farmId ?? Farm::factory(),
+            'farm_id' => $farmId ?? Farm::all()->random()->id,
             'animal_number' => $animalNumber ?? $this->faker->unique()->randomNumber(),
             'type_name' => $typeName ?? $this->faker->name(),
             'years' => $years ?? $this->faker->randomNumber($nbDigits = 2, $strict = false),
