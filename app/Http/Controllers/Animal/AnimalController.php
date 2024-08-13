@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Animal;
 use App\Rules\MaxAnimalsPerFarm;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class AnimalController extends Controller
 {
@@ -18,7 +19,11 @@ class AnimalController extends Controller
         }
         return response()->json($animal);
     }
-    public function create(Request $request)
+    public function create()
+    {
+        return Inertia::render('Animal/Create');
+    }
+    public function store(Request $request)
     {
         $request->validate([
             'farm_id' => ['required', 'exists:farms,id', new MaxAnimalsPerFarm($request->farm_id)],

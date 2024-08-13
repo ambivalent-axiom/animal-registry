@@ -10,17 +10,13 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('Auth/Login', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
 });
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])
@@ -32,21 +28,27 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
 
     Route::get('/farms/index', [FarmController::class, 'index'])
         ->name('farms.index');
     Route::get('/farms/show/{farm_id}', [FarmController::class, 'show'])
         ->name('farms.show')
         ->middleware(IsFarmOwner::class);
-    Route::post('/farms/create', [FarmController::class, 'create'])
+    Route::get('/farms/create', [AnimalController::class, 'create'])
         ->name('farms.create');
+    Route::post('/farms/create', [FarmController::class, 'store'])
+        ->name('farms.store');
 
     Route::get('/animals/show/{animal_id}', [AnimalController::class, 'show'])
         ->name('animals.show')
         ->middleware(IsAnimalOwner::class);
-    Route::post('/animals/create', [AnimalController::class, 'create'])
-        ->name('animal.create');
+    Route::get('animals/create', [AnimalController::class, 'create'])
+        ->name('animals.create');
+    Route::post('/animals/create', [AnimalController::class, 'store'])
+        ->name('animal.store');
 
 
 });

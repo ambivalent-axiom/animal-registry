@@ -6,13 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\Farm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class FarmController extends Controller
 {
     public function index()
     {
-//        $farms = Farm::where('user_id', Auth::id())->with('animals')->paginate(10);
-//        return view('farm.index', compact('farms'));
+        $farms = Farm::where('user_id', Auth::id())
+            ->with('animals')
+            ->paginate(10);
+        return Inertia::render('Farm/Index', [
+            'farms' => $farms,
+        ]);
     }
     public function show(int $farmId)
     {
@@ -24,7 +29,11 @@ class FarmController extends Controller
 
         return response()->json($farm);
     }
-    public function create(Request $request)
+    public function create()
+    {
+        return Inertia::render('Farm/Create');
+    }
+    public function store(Request $request)
     {
         $request->validate([
             'farm_name' => ['required', 'string', 'max:255'],

@@ -24,7 +24,7 @@ class FarmFactory extends Factory
     {
         return [
             'user_id' => $user ?? User::factory(),
-            'name' => $name ?? $this->faker->name(),
+            'name' => $name ?? $this->faker->company(),
             'email' => $email ?? $this->faker->unique()->safeEmail(),
             'website' => $website ?? $this->faker->url(),
         ];

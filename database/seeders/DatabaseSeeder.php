@@ -26,12 +26,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'peteris@fermas.lv',
             'password' => Hash::make('qwerty123'),
         ]);
-        Farm::factory(2)->create([
+        Farm::factory(20)->create([
             'user_id' => $userPeteris->id,
         ]);
-        Farm::factory(2)->create([
+        Farm::factory(20)->create([
             'user_id' => $userJanis->id,
         ]);
-        Animal::factory(5)->create();
+        Animal::factory(20)->create();
     }
 }
