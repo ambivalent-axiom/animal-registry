@@ -76,13 +76,13 @@ export default function Index({ auth, farms}: PageProps) {
                                     <div className="flex mt-4 justify-between">
                                         {farms.links.map((link) => (
                                             <a
-                                                key={link.label}
+                                                key={link.label.replaceAll('&laquo;', '').replaceAll('&raquo;', '')}
                                                 href={link.url}
                                                 className={`px-4 py-2 border rounded ${
                                                     link.active ? 'bg-gray-800 text-white' : 'text-gray-900'
                                                 }`}
                                             >
-                                                {link.label}
+                                                {link.label.replaceAll('&laquo;', '').replaceAll('&raquo;', '')}
                                             </a>
                                         ))}
                                     </div>
