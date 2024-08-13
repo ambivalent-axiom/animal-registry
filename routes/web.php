@@ -32,6 +32,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
+    Route::get('/', [FarmController::class, 'index'])
+        ->name('farms.index');
+
     Route::get('/farms/index', [FarmController::class, 'index'])
         ->name('farms.index');
     Route::get('/farms/show/{farm_id}', [FarmController::class, 'show'])
