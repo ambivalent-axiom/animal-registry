@@ -14,6 +14,7 @@ class FarmController extends Controller
     {
         $farms = Farm::where('user_id', Auth::id())
             ->with('animals')
+            ->orderBy('created_at', 'desc')
             ->paginate(10);
         return Inertia::render('Farm/Index', [
             'farms' => $farms,
@@ -36,15 +37,15 @@ class FarmController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'farm_name' => ['required', 'string', 'max:255'],
-            'farm_email' => ['required', 'string', 'max:255'],
-            'farm_website' => ['string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'max:255'],
+            'website' => ['nullable', 'string', 'max:255'],
         ]);
         Farm::create([
             'user_id' => Auth::id(),
-            'name' => $request->farm_name,
-            'email' => $request->farm_email,
-            'website' => $request->farm_website
+            'name' => $request->name,
+            'email' => $request->email,
+            'website' => $request->website
         ]);
         return redirect(route('farms.index'))->with('success', 'Farm has been created.');
     }

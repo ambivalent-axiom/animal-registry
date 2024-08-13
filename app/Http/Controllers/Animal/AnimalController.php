@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Animal;
 use App\Rules\MaxAnimalsPerFarm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class AnimalController extends Controller
@@ -19,9 +20,12 @@ class AnimalController extends Controller
         }
         return response()->json($animal);
     }
-    public function create()
+    public function create(int $farmId)
     {
-        return Inertia::render('Animal/Create');
+        return Inertia::render('Animal/Create',
+        [
+            'farmId' => $farmId,
+        ]);
     }
     public function store(Request $request)
     {
@@ -29,9 +33,10 @@ class AnimalController extends Controller
             'farm_id' => ['required', 'exists:farms,id', new MaxAnimalsPerFarm($request->farm_id)],
             'animal_number' => ['required', 'integer'],
             'type_name' => ['required', 'string'],
-            'years' => 'integer',
+            'years' => ['nullable', 'integer'],
         ]);
-        ANimal::create([
+        Animal::create([
+            'user_id' => Auth::id(),
             'farm_id' => $request->farm_id,
             'animal_number' => $request->animal_number,
             'type_name' => $request->type_name,

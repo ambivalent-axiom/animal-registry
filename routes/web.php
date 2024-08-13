@@ -37,7 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/farms/show/{farm_id}', [FarmController::class, 'show'])
         ->name('farms.show')
         ->middleware(IsFarmOwner::class);
-    Route::get('/farms/create', [AnimalController::class, 'create'])
+    Route::get('/farms/create', [FarmController::class, 'create'])
         ->name('farms.create');
     Route::post('/farms/create', [FarmController::class, 'store'])
         ->name('farms.store');
@@ -45,10 +45,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/animals/show/{animal_id}', [AnimalController::class, 'show'])
         ->name('animals.show')
         ->middleware(IsAnimalOwner::class);
-    Route::get('animals/create', [AnimalController::class, 'create'])
+    Route::get('animals/create/{farm_id}', [AnimalController::class, 'create'])
         ->name('animals.create');
     Route::post('/animals/create', [AnimalController::class, 'store'])
-        ->name('animal.store');
+        ->name('animals.store');
 
 
 });

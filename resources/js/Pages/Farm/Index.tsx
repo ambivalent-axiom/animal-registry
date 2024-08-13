@@ -35,7 +35,7 @@ export default function Index({ auth, farms, animals}: PageProps) {
                                                                 <div className="ml-2">Website: {farm.website}</div>
                                                             </div>
                                                             <div className='mr-5'>
-                                                                <a href={route('animals.create')}>
+                                                                <a href={route('animals.create', { farm_id: farm.id })}>
                                                                     <PrimaryButton>Add Animal</PrimaryButton>
                                                                 </a>
                                                             </div>
