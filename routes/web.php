@@ -40,8 +40,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->name('farms.index');
         Route::get('/farms/index', 'index')
             ->name('farms.index');
-        Route::get('/farms/show/{farm_id}', 'show')
-            ->name('farms.show')
+        Route::get('/farms/update/{farm_id}', 'show')
+            ->name('farms.update.show')
             ->middleware(IsFarmOwner::class);
         Route::get('/farms/create', 'create')
             ->name('farms.create');
@@ -49,6 +49,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->name('farms.store');
         Route::delete('/farms/delete', 'destroy')
             ->name('farms.destroy')
+            ->middleware(IsFarmOwner::class);
+        Route::put('/farms/update', 'update')
+            ->name('farms.update')
             ->middleware(IsFarmOwner::class);
     });
 

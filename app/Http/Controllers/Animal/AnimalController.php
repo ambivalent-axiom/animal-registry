@@ -22,8 +22,6 @@ class AnimalController extends Controller
             'animal' => $animal,
         ]);
     }
-
-
     public function create(int $farmId)
     {
         return Inertia::render('Animal/Create',

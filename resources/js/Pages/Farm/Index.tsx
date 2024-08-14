@@ -90,6 +90,11 @@ export default function Index({ auth, farms, flash}: PageProps & { flash?: Flash
                                                                 <PrimaryButton>Add Animal</PrimaryButton>
                                                             </a>
                                                         </div>
+                                                        <div className='mr-2'>
+                                                            <a href={route('farms.update.show', {farm_id: farm.id})}>
+                                                                <SecondaryButton>Edit Farm</SecondaryButton>
+                                                            </a>
+                                                        </div>
                                                         <div className='mr-5'>
                                                             <DangerButton
                                                                 onClick={() => handleFarmDelete(farm.id)}>Delete
@@ -98,7 +103,7 @@ export default function Index({ auth, farms, flash}: PageProps & { flash?: Flash
                                                     </div>
                                                 </div>
                                                 <div>
-                                                {farm.animals.length > 0 ? (
+                                                    {farm.animals.length > 0 ? (
                                                         <div className="block w-full overflow-x-auto">
                                                             <table
                                                                 className="items-center text-center bg-transparent w-full border-collapse ">

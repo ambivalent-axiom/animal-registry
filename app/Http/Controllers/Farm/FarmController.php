@@ -32,8 +32,9 @@ class FarmController extends Controller
             return redirect(route('farms.index'))
                 ->with('error', 'Farm not found.');
         }
-
-        return response()->json($farm);
+        return Inertia::render('Farm/Update', [
+            'farm' => $farm,
+        ]);
     }
     public function create()
     {
@@ -75,5 +76,17 @@ class FarmController extends Controller
         }
         $farm->delete();
         return redirect(route('farms.index'))->with('success', 'Farm has been deleted.');
+    }
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'farm_id' => ['required', 'numeric', 'exists:farms,id'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'max:255'],
+            'website' => ['nullable', 'string', 'max:255'],
+        ]);
+        $farm = Farm::find($request->farm_id);
+        $farm->update($validated);
+        return redirect(route('farms.index'))->with('success', 'Farm has been updated.');
     }
 }
