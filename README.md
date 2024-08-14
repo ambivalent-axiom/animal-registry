@@ -31,7 +31,8 @@ Each user can access only their farms and animals data. Each Farm can hold up to
 <h2 align="center">Run with Docker</h2>
 Docker Setup (Using Laravel Sail)
 
-- ```./vendor/bin/sail up```
+- ```./vendor/bin/sail up``` Start up the container
+- ```./vendor/bin/sail artisan migrate``` Launch migration to create schemas
 - Open ```localhost``` in web browser.
 
 <h2 align="center">Commands</h2>
