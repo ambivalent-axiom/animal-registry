@@ -18,8 +18,12 @@ class AnimalController extends Controller
             return redirect(route('farms.index'))
                 ->with('error', 'Animal not found.');
         }
-        return response()->json($animal);
+        return Inertia::render('Animal/Update', [
+            'animal' => $animal,
+        ]);
     }
+
+
     public function create(int $farmId)
     {
         return Inertia::render('Animal/Create',
@@ -45,9 +49,12 @@ class AnimalController extends Controller
         return redirect(route('farms.index'))
             ->with('success', 'Animal has been added to the farm.');
     }
-    public function destroy($animal_id)
+    public function destroy(Request $request)
     {
-        $animal = Animal::find($animal_id);
+        $request->validate([
+            'animal_id' => ['required', 'numeric' ,'exists:animals,id'],
+        ]);
+        $animal = Animal::find($request->animal_id);
         if ( ! $animal) {
             return redirect(route('farms.index'))
                 ->with('error', 'Animal not found.');
@@ -59,5 +66,17 @@ class AnimalController extends Controller
         $animal->delete();
         return redirect(route('farms.index'))
             ->with('success', 'Animal has been removed.');
+    }
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'animal_id' => ['required', 'numeric' ,'exists:animals,id'],
+            'animal_number' => ['required', 'integer'],
+            'type_name' => ['required', 'string'],
+            'years' => ['nullable', 'integer'],
+        ]);
+        $animal = Animal::find($request->animal_id);
+        $animal->update($validated);
+        return redirect(route('farms.index'))->with('success', 'Animal has been updated.');
     }
 }

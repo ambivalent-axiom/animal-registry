@@ -18,6 +18,11 @@ class FarmController extends Controller
             ->paginate(10);
         return Inertia::render('Farm/Index', [
             'farms' => $farms,
+            'flash' => [
+                'success' => session('success'),
+                'error' => session('error'),
+                'message' => session('message'),
+            ],
         ]);
     }
     public function show(int $farmId)
@@ -51,6 +56,9 @@ class FarmController extends Controller
     }
     public function destroy(Request $request)
     {
+        $request->validate([
+            'farm_id' => ['required', 'numeric', 'exists:farms,id'],
+        ]);
         $farm = Farm::find($request->farm_id);
         if ( ! $farm) {
             return redirect(route('farms.index'))

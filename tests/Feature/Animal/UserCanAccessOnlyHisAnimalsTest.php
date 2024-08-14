@@ -25,10 +25,10 @@ test('user can access only his animals', function () {
         );
     $response = $this
         ->actingAs($user1)
-        ->get('/animals/show/' . $user1Animal->id);
+        ->get('/animals/update/' . $user1Animal->id);
     $response->assertStatus(200);
     $response = $this
         ->actingAs($user1)
-        ->get('/farms/show/' . $user2Animal->id);
+        ->get('/animals/update/' . $user2Animal->id);
     $response->assertStatus(401);
 });

@@ -14,17 +14,20 @@ test('user can delete animal', function () {
         'farm_id' => $farm->id,
     ]);
     $response = $this->actingAs($user)
-        ->delete("/animals/delete", [
+        ->put("/animals/update", [
             'animal_id' => $animal->id,
+            'animal_number' => 1,
+            'type_name' => 'cow',
+            'years' => 3
         ]);
-
-    $this->assertDatabaseMissing('animals', [
-        'id' => $animal->id,
-        'user_id' => $user->id,
-        'farm_id' => $farm->id,
-        'deleted_at' => null,
-    ]);
-    $response->assertRedirect("/farms/index");
-    $response->assertSessionHas('success', 'Animal has been removed.');
     $response->assertStatus(302);
+    $response->assertRedirect("/farms/index");
+    $response->assertSessionHas('success', 'Animal has been updated.');
+    $this->assertDatabaseCount('animals', 1);
+    $this->assertDatabaseHas('animals', [
+        'id' => $animal->id,
+        'animal_number' => 1,
+        'type_name' => 'cow',
+        'years' => 3
+    ]);
 });

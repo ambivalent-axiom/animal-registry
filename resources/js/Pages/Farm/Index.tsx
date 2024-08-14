@@ -6,15 +6,28 @@ import DangerButton from "@/Components/DangerButton";
 import {FormEventHandler} from "react";
 import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
+import SecondaryButton from "@/Components/SecondaryButton";
 
-export default function Index({ auth, farms}: PageProps) {
+interface FlashMessages {
+    success?: string;
+    error?: string;
+    message?: string;
+}
+
+export default function Index({ auth, farms, flash}: PageProps & { flash?: FlashMessages }) {
     const { data, links } = farms;
-
     const { delete: deleteRequest, processing, errors, reset } = useForm();
 
     const handleFarmDelete = (farmId: number) => {
-        if (confirm('Animals in farm will be deleted too! Proceed?')) {
+        if (confirm('Delete farm with animals! Proceed?')) {
             deleteRequest(route('farms.destroy', { farm_id: farmId }), {
+                preserveState: true,
+            });
+        }
+    };
+    const handleAnimalDelete = (animalId: number) => {
+        if (confirm('This will delete animal. Are You sure?')) {
+            deleteRequest(route('animals.destroy', { animal_id: animalId }), {
                 preserveState: true,
             });
         }
@@ -24,6 +37,7 @@ export default function Index({ auth, farms}: PageProps) {
         <AuthenticatedLayout
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Farms</h2>}
+
         >
             <Head title="Farms" />
             <div className="py-12">
@@ -31,6 +45,29 @@ export default function Index({ auth, farms}: PageProps) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="m-8 flex justify-between text-gray-900 text-xl font-bold">
                             <h1>Your farms</h1>
+                            <div>
+                                {flash?.success && (
+                                    <div
+                                        className="text-green-700"
+                                        role="alert">
+                                        <span className="block sm:inline">{flash.success}</span>
+                                    </div>
+                                )}
+                                {flash?.error && (
+                                    <div
+                                        className="text-red-700"
+                                        role="alert">
+                                        <span className="block sm:inline">{flash.error}</span>
+                                    </div>
+                                )}
+                                {flash?.message && (
+                                    <div
+                                        className="text-gray-700"
+                                        role="alert">
+                                        <span className="block sm:inline">{flash.message}</span>
+                                    </div>
+                                )}
+                            </div>
                             <a href={route('farms.create')}>
                                 <PrimaryButton>Add Farm</PrimaryButton>
                             </a>
@@ -68,22 +105,33 @@ export default function Index({ auth, farms}: PageProps) {
                                                                 <thead>
                                                                 <tr>
                                                                     <th className="text-center px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
-                                                                    Animal ID
-                                                                </th>
-                                                                <th className="text-center px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                                                    Type
-                                                                </th>
-                                                                <th className="text-center px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                                                    Years
-                                                                </th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody className="text-center">
+                                                                        Animal ID
+                                                                    </th>
+                                                                    <th className="text-center px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                                                        Type
+                                                                    </th>
+                                                                    <th className="text-center px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                                                        Years
+                                                                    </th>
+                                                                    <th className="text-center px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                                                        Actions
+                                                                    </th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody className="text-center">
                                                                 {farm.animals.map((animal: Animal) => (
                                                                     <tr key={animal.id}>
                                                                         <td className="px-6 py-1 align-middle">{animal.animal_number}</td>
                                                                         <td className="px-6 py-1 align-middle">{animal.type_name}</td>
                                                                         <td className="px-6 py-1 align-middle">{animal.years}</td>
+                                                                        <td className="px-6 py-1 align-middle">
+                                                                            <a href={route('animals.update.show', {animal_id: animal.id})} className="mr-2">
+                                                                                <SecondaryButton>Edit</SecondaryButton>
+                                                                            </a>
+                                                                            <DangerButton
+                                                                                onClick={() => handleAnimalDelete(animal.id)}>X
+                                                                            </DangerButton>
+                                                                        </td>
                                                                     </tr>
                                                                 ))}
                                                             </tbody>

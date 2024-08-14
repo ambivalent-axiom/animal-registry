@@ -16,7 +16,7 @@ class IsFarmOwner
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $farm_id = $request->route('farm_id');
+        $farm_id = $request->route('farm_id') ?? $request->farm_id;
         if ( ! $this->farmBelongsToUser($farm_id)) {
             return response('Unauthorized.', Response::HTTP_UNAUTHORIZED);
         }

@@ -16,7 +16,7 @@ class IsAnimalOwner
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $animal_id = $request->route('animal_id');
+        $animal_id = $request->route('animal_id') ?? $request->animal_id;
         if ( ! $this->animalBelongsToUser($animal_id)) {
             return response('Unauthorized.', Response::HTTP_UNAUTHORIZED);
         }
