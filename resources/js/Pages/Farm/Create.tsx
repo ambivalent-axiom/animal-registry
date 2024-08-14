@@ -36,7 +36,7 @@ export default function CreateFarm({ auth }: PageProps) {
                                     className="mt-1 block w-full"
                                     required
                                     isFocused
-                                    maxlength="30"
+                                    maxLength="30"
                                     onChange={(e) => setData('name', e.target.value)}
                                     type="text"
                                     autoComplete="name"
@@ -50,7 +50,7 @@ export default function CreateFarm({ auth }: PageProps) {
                                     className="mt-1 block w-full"
                                     required
                                     isFocused
-                                    maxlength="30"
+                                    maxLength="30"
                                     onChange={(e) => setData('email', e.target.value)}
                                     type="email"
                                     autoComplete="email"
@@ -63,7 +63,7 @@ export default function CreateFarm({ auth }: PageProps) {
                                     id="website"
                                     className="mt-1 block w-full"
                                     isFocused
-                                    maxlength="100"
+                                    maxLength="100"
                                     type="url"
                                     onChange={(e) => setData('website', e.target.value)}
                                     autoComplete="website"

@@ -45,7 +45,7 @@ export default function UpdateAnimal({ auth, animal }: PageProps) {
                                     className="mt-1 block w-full"
                                     required
                                     isFocused
-                                    maxlength="6"
+                                    maxLength="6"
                                     onChange={(e) => setData('animal_number', e.target.value)}
                                     value={data.animal_number}
                                     type="number"
@@ -60,7 +60,7 @@ export default function UpdateAnimal({ auth, animal }: PageProps) {
                                     className="mt-1 block w-full"
                                     required
                                     isFocused
-                                    maxlength="20"
+                                    maxLength="20"
                                     onChange={(e) => setData('type_name', e.target.value)}
                                     value={data.type_name}
                                     type="text"
@@ -75,7 +75,7 @@ export default function UpdateAnimal({ auth, animal }: PageProps) {
                                     className="mt-1 block w-full"
                                     isFocused
                                     type="number"
-                                    maxlength="2"
+                                    maxLength="2"
                                     onChange={(e) => setData('years', e.target.value)}
                                     value={data.years}
                                     autoComplete="years"
