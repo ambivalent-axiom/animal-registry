@@ -1,48 +1,35 @@
 <h1 align="center">LLKC assigment</h1>
 
+<h2 align="center">Description</h2>
 
 <p align="center">
-
-Using Laravel 11 and React create:
-Basic Auth: only logged in users are able to manage entities
-CRUD functionality for: Farms and Farm Animals.
-Each user can create Farms and add Animals to each Farm.
-Each user can access only their farms and animals data
-Farms table structure: Name (required), email, website (optional)
-Animals table structure: Animal Number (required), Type name (required), years (optional)
-Use migrations to create schemas
-Use database seeds to create two users who each has two farms with some animals in each farm
-Validate form data in both frontend and backend. Allow only 3 animals for each farm.
-Use pagination for showing Farms/Animals list, 10 entries per page
-Use resource controllers with default methods - index, create, store etc.
-Use tailwind
-Use Typescript
-Use Docker to run project locally
-Use automated testing (edited)
+This is a web App that uses Laravel 11, Tailwind CSS, React and TypeScript. It allows basic authentication, user creation, update and deletion as well as recover their passwords. Only registered and authenticated users are able to manage their assets. App features CRUD functionality for Farms and Farm animals. 
+Each user can create, update or delete Farms and add, update or remove Animals at each Farm.
+Each user can access only their farms and animals data. Each Farm can hold up to 3 animals.
 </p>
 
 <img src="readme/farm.gif">
 
-
-
 <h2 align="center">Requirements</h2>
 <p>PHP > 8.2</p>
-<p>Laravel > 11.9</p>
-<p>node > v22.4.1</p>
+<p>Composer > v2.7.7</p>
+<p>Node.js > v22.4.1</p>
+<p>Docker (Optional, for Sail)</p>
 
 <h2 align="center">Setup</h2>
 
-- ```git clone https://github.com/ambivalent-axiom/llkc-assignment.git```
-- update .env.example and store as .env
-- ```composer install```
-- ```php artisan migrate```
-- ```php artisan serv```
-- ```php artisan key:generate```
-- ```npm install```
-- ```npm run build```
+- ```git clone https://github.com/ambivalent-axiom/llkc-assignment.git``` Clone the Repository
+- Set Up Environment File: update .env.example and store as .env | set postgresql for docker or sqlite for local development environment
+- ```composer install``` Install PHP Dependencies
+- ```php artisan key:generate``` Generate Application Key
+- ```php artisan migrate``` Launch migration to create schemas
+- ```npm install``` Install Frontend Dependencies
+- ```npm run build``` Build Frontend
+- ```php artisan serv``` Serve the Application
 - Open ```localhost:8000``` in web browser.
 
 <h2 align="center">Run with Docker</h2>
+Docker Setup (Using Laravel Sail)
 - ```./vendor/bin/sail up```
 - Open ```localhost``` in web browser.
 
@@ -50,4 +37,12 @@ Use automated testing (edited)
 
 - ```php artisan db:seed``` Populate database with some example data<br>
 
--- END of readme.md --
+<h2 align="center">Tests</h2>
+
+Automated testing is done by using Pest. Run all feature tests with command:
+- ```./vendor/bin/pest```
+
+
+<h2 align="center">Contact</h2>
+If you have any questions or feedback, feel free to reach out:<br>
+Email: artmelnis@gmail.com

@@ -40,7 +40,7 @@ export default function Index({ auth, farms, flash}: PageProps & { flash?: Flash
 
         >
             <Head title="Farms" />
-            <div className="py-12">
+            <div className="py-2">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="m-8 flex justify-between text-gray-900 text-xl font-bold">
@@ -77,7 +77,7 @@ export default function Index({ auth, farms, flash}: PageProps & { flash?: Flash
                                 <>
                                     <ul>
                                         {farms.data.map((farm) => (
-                                            <li key={farm.id} className="py-2 mb-2 border border-gray-200 rounded-lg">
+                                            <li key={farm.id} className="py-2 mb-2 border border-gray-200 rounded-lg bg-gray-50">
                                                 <div className="flex items-center justify-between">
                                                     <div>
                                                         <div className="text-xl font-bold ml-2">{farm.name}</div>
@@ -149,8 +149,8 @@ export default function Index({ auth, farms, flash}: PageProps & { flash?: Flash
                                             </li>
                                         ))}
                                     </ul>
-                                    <div className="flex mt-4 justify-between">
-                                        {farms.links.map((link) => (
+                                    <div className="flex mt-4 justify-center">
+                                        {links.map((link) => (
                                             <a
                                                 key={link.label.replaceAll('&laquo;', '').replaceAll('&raquo;', '')}
                                                 href={link.url}
