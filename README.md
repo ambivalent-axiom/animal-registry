@@ -30,6 +30,7 @@ Each user can access only their farms and animals data. Each Farm can hold up to
 
 <h2 align="center">Run with Docker</h2>
 Docker Setup (Using Laravel Sail)
+
 - ```./vendor/bin/sail up```
 - Open ```localhost``` in web browser.
 
