@@ -19,6 +19,10 @@ class Animal extends Model
     ];
     public function farm(): BelongsTo
     {
-        return $this->belongsTo(Farm::class);
+        return $this->BelongsTo(Farm::class, 'farm_id', 'id');
+    }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

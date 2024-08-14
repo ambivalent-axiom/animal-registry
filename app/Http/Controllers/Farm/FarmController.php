@@ -49,4 +49,23 @@ class FarmController extends Controller
         ]);
         return redirect(route('farms.index'))->with('success', 'Farm has been created.');
     }
+    public function destroy(Request $request)
+    {
+        $farm = Farm::find($request->farm_id);
+        if ( ! $farm) {
+            return redirect(route('farms.index'))
+                ->with('error', 'Farm not found.');
+        }
+        if($farm->user_id != Auth::id()){
+            return redirect(route('farms.index'))
+                ->with('error', 'Oops, something went wrong.');
+        }
+        if( $farm->animals()->count() > 0 ) {
+            foreach ($farm->animals as $animal) {
+                $animal->delete();
+            }
+        }
+        $farm->delete();
+        return redirect(route('farms.index'))->with('success', 'Farm has been deleted.');
+    }
 }

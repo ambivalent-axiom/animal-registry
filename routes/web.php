@@ -32,28 +32,38 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/', [FarmController::class, 'index'])
-        ->name('farms.index');
-
-    Route::get('/farms/index', [FarmController::class, 'index'])
-        ->name('farms.index');
-    Route::get('/farms/show/{farm_id}', [FarmController::class, 'show'])
-        ->name('farms.show')
-        ->middleware(IsFarmOwner::class);
-    Route::get('/farms/create', [FarmController::class, 'create'])
-        ->name('farms.create');
-    Route::post('/farms/create', [FarmController::class, 'store'])
-        ->name('farms.store');
-
-    Route::get('/animals/show/{animal_id}', [AnimalController::class, 'show'])
-        ->name('animals.show')
-        ->middleware(IsAnimalOwner::class);
-    Route::get('animals/create/{farm_id}', [AnimalController::class, 'create'])
-        ->name('animals.create');
-    Route::post('/animals/create', [AnimalController::class, 'store'])
-        ->name('animals.store');
 
 
+
+    Route::controller(FarmController::class)->group(function () {
+        Route::get('/', 'index')
+            ->name('farms.index');
+        Route::get('/farms/index', 'index')
+            ->name('farms.index');
+        Route::get('/farms/show/{farm_id}', 'show')
+            ->name('farms.show')
+            ->middleware(IsFarmOwner::class);
+        Route::get('/farms/create', 'create')
+            ->name('farms.create');
+        Route::post('/farms/create', 'store')
+            ->name('farms.store');
+        Route::delete('/farms/delete', 'destroy')
+            ->name('farms.destroy');
+//            ->middleware(IsFarmOwner::class);
+    });
+
+    Route::controller(AnimalController::class)->group(function () {
+        Route::get('/animals/show/{animal_id}', 'show')
+            ->name('animals.show')
+            ->middleware(IsAnimalOwner::class);
+        Route::get('animals/create/{farm_id}', 'create')
+            ->name('animals.create');
+        Route::post('/animals/create', 'store')
+            ->name('animals.store');
+        Route::delete('/animals/delete/{animal_id}', 'destroy')
+            ->name('animals.destroy')
+            ->middleware(IsAnimalOwner::class);
+    });
 });
 
 require __DIR__.'/auth.php';

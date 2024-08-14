@@ -7,9 +7,10 @@ test('user can create farm', function () {
     $response = $this
         ->actingAs($user)
         ->post('/farms/create', [
-            'farm_name' => 'Farm Test',
-            'farm_email' => $user->email,
-            'farm_website' => 'www.example.com',
+            'user_id' => $user->id,
+            'name' => 'Farm Test',
+            'email' => $user->email,
+            'website' => 'www.example.com',
         ]);
     $response->assertStatus(302);
     $this->assertDatabaseCount('farms', 1);

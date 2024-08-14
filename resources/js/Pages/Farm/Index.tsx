@@ -1,10 +1,25 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import {Head, useForm} from '@inertiajs/react';
 import {PageProps, User, Farm, Animal} from '@/types';
 import PrimaryButton from "@/Components/PrimaryButton";
+import DangerButton from "@/Components/DangerButton";
+import {FormEventHandler} from "react";
+import TextInput from "@/Components/TextInput";
+import InputError from "@/Components/InputError";
 
 export default function Index({ auth, farms}: PageProps) {
     const { data, links } = farms;
+
+    const { delete: deleteRequest, processing, errors, reset } = useForm();
+
+    const handleFarmDelete = (farmId: number) => {
+        if (confirm('Animals in farm will be deleted too! Proceed?')) {
+            deleteRequest(route('farms.destroy', { farm_id: farmId }), {
+                preserveState: true,
+            });
+        }
+    };
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -32,16 +47,24 @@ export default function Index({ auth, farms}: PageProps) {
                                                         <div className="ml-2">Email: {farm.email}</div>
                                                         <div className="ml-2">Website: {farm.website}</div>
                                                     </div>
-                                                    <div className='mr-5'>
-                                                        <a href={route('animals.create', { farm_id: farm.id })}>
-                                                            <PrimaryButton>Add Animal</PrimaryButton>
-                                                        </a>
+                                                    <div className="flex">
+                                                        <div className='mr-2'>
+                                                            <a href={route('animals.create', {farm_id: farm.id})}>
+                                                                <PrimaryButton>Add Animal</PrimaryButton>
+                                                            </a>
+                                                        </div>
+                                                        <div className='mr-5'>
+                                                            <DangerButton
+                                                                onClick={() => handleFarmDelete(farm.id)}>Delete
+                                                            </DangerButton>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    {farm.animals.length > 0 ? (
+                                                {farm.animals.length > 0 ? (
                                                         <div className="block w-full overflow-x-auto">
-                                                            <table className="items-center text-center bg-transparent w-full border-collapse ">
+                                                            <table
+                                                                className="items-center text-center bg-transparent w-full border-collapse ">
                                                                 <thead>
                                                                 <tr>
                                                                     <th className="text-center px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">

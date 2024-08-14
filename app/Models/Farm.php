@@ -23,6 +23,6 @@ class Farm extends Model
     }
     public function animals(): HasMany
     {
-        return $this->hasMany(Animal::class);
+        return $this->hasMany(Animal::class, 'farm_id', 'id');
     }
 }

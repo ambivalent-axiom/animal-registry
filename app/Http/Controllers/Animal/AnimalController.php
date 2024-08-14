@@ -45,4 +45,19 @@ class AnimalController extends Controller
         return redirect(route('farms.index'))
             ->with('success', 'Animal has been added to the farm.');
     }
+    public function destroy($animal_id)
+    {
+        $animal = Animal::find($animal_id);
+        if ( ! $animal) {
+            return redirect(route('farms.index'))
+                ->with('error', 'Animal not found.');
+        }
+        if ($animal->user_id !== Auth::id()) {
+            return redirect(route('farms.index'))
+                ->with('error', 'Oops, something went wrong.');
+        }
+        $animal->delete();
+        return redirect(route('farms.index'))
+            ->with('success', 'Animal has been removed.');
+    }
 }
