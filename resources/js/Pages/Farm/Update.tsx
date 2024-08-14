@@ -48,7 +48,6 @@ export default function UpdateFarm({ auth, farm }: PageProps) {
                                     isFocused
                                     onChange={(e) => setData('name', e.target.value)}
                                     type="text"
-                                    maxLength="30"
                                     value={data.name}
                                     autoComplete="name"
                                 />
@@ -63,7 +62,6 @@ export default function UpdateFarm({ auth, farm }: PageProps) {
                                     isFocused
                                     onChange={(e) => setData('email', e.target.value)}
                                     value={data.email}
-                                    maxLength="30"
                                     type="email"
                                     autoComplete="email"
                                 />
@@ -76,7 +74,6 @@ export default function UpdateFarm({ auth, farm }: PageProps) {
                                     className="mt-1 block w-full"
                                     isFocused
                                     type="url"
-                                    maxLength="100"
                                     onChange={(e) => setData('website', e.target.value)}
                                     value={data.website ?? ""}
                                     autoComplete="website"

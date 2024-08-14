@@ -20,9 +20,9 @@ export interface Animal {
     id: number;
     user_id: number;
     farm_id: number;
-    animal_number: number;
+    animal_number: any;
     type_name: string;
-    years: number;
+    years: any;
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
@@ -32,7 +32,10 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     ziggy: Config & { location: string };
     farms: {
         data: Farm[];
-        links: string[];
+        links: any[];
     }
+    farm: Farm;
+    animal: Animal;
     animals: Animal[];
+    farmId: number;
 };

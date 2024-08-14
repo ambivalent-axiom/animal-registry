@@ -45,7 +45,6 @@ export default function CreateAnimal({ auth, farmId }: PageProps) {
                                     className="mt-1 block w-full"
                                     required
                                     isFocused
-                                    maxLength="6"
                                     onChange={(e) => setData('animal_number', e.target.value)}
                                     type="number"
                                     autoComplete="animal_number"
@@ -59,7 +58,6 @@ export default function CreateAnimal({ auth, farmId }: PageProps) {
                                     className="mt-1 block w-full"
                                     required
                                     isFocused
-                                    maxLength="20"
                                     onChange={(e) => setData('type_name', e.target.value)}
                                     type="text"
                                     autoComplete="type_name"
@@ -72,7 +70,6 @@ export default function CreateAnimal({ auth, farmId }: PageProps) {
                                     id="years"
                                     className="mt-1 block w-full"
                                     isFocused
-                                    maxLength="2"
                                     type="number"
                                     onChange={(e) => setData('years', e.target.value)}
                                     autoComplete="years"
