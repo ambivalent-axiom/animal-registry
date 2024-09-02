@@ -1,4 +1,4 @@
-<h1 align="center">LLKC assigment</h1>
+<h1 align="center">Animal registration app</h1>
 
 <h2 align="center">Description</h2>
 
